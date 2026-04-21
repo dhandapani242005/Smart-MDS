@@ -10,25 +10,25 @@ import Doctors from './pages/Doctors';
 import DeviceConfig from './pages/DeviceConfig';
 
 const App = () => {
-    const [sidebarOpen, setSidebarOpen] = useState(false);
-
-    const toggleSidebar = () => setSidebarOpen((prev) => !prev);
-    const closeSidebar = () => setSidebarOpen(false);
+    const [mobileOpen, setMobileOpen] = useState(false);
 
     return (
         <Router>
             <div className="app-layout">
-                <Sidebar isOpen={sidebarOpen} onClose={closeSidebar} />
+                <Sidebar
+                    mobileOpen={mobileOpen}
+                    onMobileClose={() => setMobileOpen(false)}
+                />
                 <div className="main-wrapper">
-                    <Header onMenuToggle={toggleSidebar} />
+                    <Header onMenuToggle={() => setMobileOpen(v => !v)} />
                     <main className="main-content">
                         <Routes>
-                            <Route path="/" element={<Dashboard />} />
+                            <Route path="/"         element={<Dashboard />} />
                             <Route path="/schedule" element={<Schedule />} />
-                            <Route path="/inventory" element={<Inventory />} />
-                            <Route path="/logs" element={<Logs />} />
-                            <Route path="/doctors" element={<Doctors />} />
-                            <Route path="/device" element={<DeviceConfig />} />
+                            <Route path="/inventory"element={<Inventory />} />
+                            <Route path="/logs"     element={<Logs />} />
+                            <Route path="/doctors"  element={<Doctors />} />
+                            <Route path="/device"   element={<DeviceConfig />} />
                         </Routes>
                     </main>
                 </div>
@@ -38,3 +38,4 @@ const App = () => {
 };
 
 export default App;
+

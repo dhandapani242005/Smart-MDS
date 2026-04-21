@@ -4,8 +4,8 @@ import { database } from '../firebase/firebase';
 import useDeviceStatus from '../hooks/useDeviceStatus';
 import BoxCard from '../components/BoxCard';
 import StatusCard from '../components/StatusCard';
-import { MdAccessTime, MdUpdate } from 'react-icons/md';
-import { FaClock, FaPills } from 'react-icons/fa';
+import { MdAccessTimeFilled, MdOutlineHistory, MdEventNote } from 'react-icons/md';
+import { FaPills } from 'react-icons/fa';
 
 const Dashboard = () => {
     const [inventory, setInventory] = useState({});
@@ -127,19 +127,19 @@ const Dashboard = () => {
             {/* Status Cards Row */}
             <div className="status-cards-row">
                 <StatusCard
-                    icon={<FaClock />}
+                    icon={<MdEventNote />}
                     label="Last Event"
                     value={getLastEvent()}
                     color="green"
                 />
                 <StatusCard
-                    icon={<MdAccessTime />}
+                    icon={<MdAccessTimeFilled />}
                     label="Next Dose"
                     value={getNextDoseTime()}
                     color="blue"
                 />
                 <StatusCard
-                    icon={<MdUpdate />}
+                    icon={<MdOutlineHistory />}
                     label="Last Seen"
                     value={getLastSeen()}
                     color={isOnline ? 'green' : 'orange'}

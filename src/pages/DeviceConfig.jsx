@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { ref, onValue } from 'firebase/database';
 import { database } from '../firebase/firebase';
 import useDeviceStatus from '../hooks/useDeviceStatus';
-import { FaMicrochip, FaWifi, FaClock, FaServer, FaCode } from 'react-icons/fa';
-import { MdDevices } from 'react-icons/md';
+import { FaMicrochip, FaWifi, FaClock, FaServer, FaCode, FaSyringe, FaVolumeUp } from 'react-icons/fa';
+import { MdDevices, MdSettingsInputComposite } from 'react-icons/md';
 
 const DeviceConfig = () => {
     const [device, setDevice] = useState({});
@@ -76,17 +76,17 @@ const DeviceConfig = () => {
         {
             label: 'System State',
             value: status.systemState || 'Unknown',
-            icon: <MdDevices />,
+            icon: <MdSettingsInputComposite />,
         },
         {
             label: 'Dispensing',
             value: status.dispensing ? 'Yes' : 'No',
-            icon: <FaMicrochip />,
+            icon: <FaSyringe />,
         },
         {
             label: 'Buzzer Active',
             value: status.buzzerActive ? 'Yes' : 'No',
-            icon: <FaMicrochip />,
+            icon: <FaVolumeUp />,
         },
         {
             label: 'Last Seen',

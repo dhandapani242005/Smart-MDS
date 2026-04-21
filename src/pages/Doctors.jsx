@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { ref, onValue, push, update, remove } from 'firebase/database';
 import { database } from '../firebase/firebase';
 import ContactCard from '../components/ContactCard';
-import { FaPlus, FaTimes, FaUserMd } from 'react-icons/fa';
+import { FaTimes, FaUserMd } from 'react-icons/fa';
+import { MdAdd, MdClose } from 'react-icons/md';
 
 const COUNTRY_CODES = [
     { code: '+91', name: 'India', iso: 'in' },
@@ -180,12 +181,15 @@ const Doctors = () => {
             </div>
 
             <div style={{ marginBottom: 20 }}>
-                <button className="btn btn-primary" onClick={() => {
-                    if (showForm) resetForm();
-                    else setShowForm(true);
-                }}>
-                    <FaPlus /> {showForm ? 'Cancel' : 'Add Contact'}
-                </button>
+                {!showForm ? (
+                    <button className="btn btn-primary" onClick={() => setShowForm(true)}>
+                        <MdAdd /> Add Contact
+                    </button>
+                ) : (
+                    <button className="btn btn-secondary" onClick={resetForm}>
+                        <MdClose /> Cancel
+                    </button>
+                )}
             </div>
 
             {/* Add / Edit Form - Modal */}
