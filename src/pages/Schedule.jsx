@@ -8,7 +8,7 @@ import {
     FaTimesCircle, FaCheckCircle, FaSyringe,
 } from 'react-icons/fa';
 
-const BOXES = [1, 2, 3, 4, 5, 6];
+const BOXES = [1, 2, 3, 4];
 const DAYS_FULL = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
 const REPEAT_OPTIONS = [
@@ -76,6 +76,7 @@ const Schedule = () => {
     const [editKey, setEditKey] = useState(null);
     const [showOptional, setShowOptional] = useState(false);
     const [form, setForm] = useState({ ...EMPTY_FORM });
+    const [timeFocus, setTimeFocus] = useState(null);
 
     useEffect(() => {
         const schedulesRef = ref(database, 'schedule_runtime');
@@ -329,13 +330,51 @@ const Schedule = () => {
                     <div className="time-picker">
                         <div className="time-picker-col">
                             <button type="button" className="time-arrow" onClick={() => scrollHour(1)}>▲</button>
-                            <div className="time-display">{String(form.hour).padStart(2, '0')}</div>
+                            <input
+                                type="text"
+                                inputMode="numeric"
+                                className="time-display time-input"
+                                value={timeFocus === 'hour' ? form.hour : String(form.hour || '').padStart(2, '0')}
+                                onFocus={() => setTimeFocus('hour')}
+                                onBlur={() => {
+                                    setTimeFocus(null);
+                                    if (!form.hour || form.hour < 1) setField('hour', 12);
+                                }}
+                                onChange={(e) => {
+                                    let val = e.target.value.replace(/\D/g, '');
+                                    if (val === '') setField('hour', '');
+                                    else {
+                                        let num = parseInt(val, 10);
+                                        if (num > 12) num = 12;
+                                        setField('hour', num);
+                                    }
+                                }}
+                            />
                             <button type="button" className="time-arrow" onClick={() => scrollHour(-1)}>▼</button>
                         </div>
                         <div className="time-picker-sep">:</div>
                         <div className="time-picker-col">
                             <button type="button" className="time-arrow" onClick={() => scrollMinute(5)}>▲</button>
-                            <div className="time-display">{String(form.minute).padStart(2, '0')}</div>
+                            <input
+                                type="text"
+                                inputMode="numeric"
+                                className="time-display time-input"
+                                value={timeFocus === 'minute' ? form.minute : String(form.minute === '' ? 0 : form.minute).padStart(2, '0')}
+                                onFocus={() => setTimeFocus('minute')}
+                                onBlur={() => {
+                                    setTimeFocus(null);
+                                    if (form.minute === '' || isNaN(form.minute)) setField('minute', 0);
+                                }}
+                                onChange={(e) => {
+                                    let val = e.target.value.replace(/\D/g, '');
+                                    if (val === '') setField('minute', '');
+                                    else {
+                                        let num = parseInt(val, 10);
+                                        if (num > 59) num = 59;
+                                        setField('minute', num);
+                                    }
+                                }}
+                            />
                             <button type="button" className="time-arrow" onClick={() => scrollMinute(-5)}>▼</button>
                         </div>
                         <div className="time-picker-period">

@@ -140,7 +140,7 @@ const Inventory = () => {
         setReduceReason('');
     };
 
-    const boxes = [1, 2, 3, 4, 5, 6].map((num) => {
+    const boxes = [1, 2, 3, 4].map((num) => {
         const key = `box${num}`;
         return {
             key,

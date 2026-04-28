@@ -43,7 +43,7 @@ const Dashboard = () => {
     }, []);
 
     // inventory values can be plain numbers (e.g. box1: 99) or objects ({count: 99, name: "..."})
-    const boxes = [1, 2, 3, 4, 5, 6].map((num) => {
+    const boxes = [1, 2, 3, 4].map((num) => {
         const raw = inventory[`box${num}`];
         if (typeof raw === 'number') {
             return { number: num, count: raw, name: '' };

@@ -643,7 +643,7 @@ textarea:focus {
    ================================================================ */
 .box-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 16px;
 }
 
@@ -1030,6 +1030,22 @@ textarea:focus {
   padding: 8px 0;
   font-variant-numeric: tabular-nums;
   letter-spacing: -1px;
+}
+
+input.time-input {
+  border: none;
+  background: transparent;
+  outline: none;
+  font-family: inherit;
+  width: 60px;
+  cursor: text;
+  border-radius: var(--radius-sm);
+  transition: background var(--transition);
+}
+
+input.time-input:focus {
+  background: var(--card);
+  box-shadow: inset 0 0 0 2px var(--primary);
 }
 
 .time-picker-sep {
